@@ -66,7 +66,7 @@ functions:
           method: delete
           cors: true
           
- translate:
+  translate:
     handler: todos/translate.translate
     events:
       - http:
@@ -74,7 +74,7 @@ functions:
           method: get
           cors: true
 
-resources:
+ resources:
   Resources:
     TodosDynamoDbTable:
       Type: 'AWS::DynamoDB::Table'
