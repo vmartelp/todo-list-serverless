@@ -18,9 +18,6 @@ provider:
         - dynamodb:PutItem
         - dynamodb:UpdateItem
         - dynamodb:DeleteItem
-        - translate:TranslateText
-        - comprehend:DetectDominantLanguage 
-      Resource: '*'
       Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE}"
 
 functions:
@@ -71,6 +68,9 @@ functions:
           path: todos/{id}/{language}
           method: get
           cors: true
+      - translate:TranslateText
+      - comprehend:DetectDominantLanguage 
+      Resource: '*'        
           
 resources:
   Resources:
