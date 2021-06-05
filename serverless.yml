@@ -23,8 +23,7 @@ provider:
       Action:
         - translate:TranslateText
         - comprehend:DetectDominantLanguage
-      Resource: "*"  
-
+      Resource: "*"        
 functions:
   create:
     handler: todos/create.create
