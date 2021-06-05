@@ -7,12 +7,12 @@ dynamodb = boto3.resource('dynamodb')
 
 def translate(event, context):
 
-    # get target language from request
+    # obtenemos el idioma de destino de la solicitud
     target_lang=event['pathParameters']['language']
 
     table = dynamodb.Table(os.environ['DYNAMODB_TABLE'])
 
-    # fetch todo from the database
+    # recuperamos todo desde la base de datos
     result = table.get_item(
         Key={
             'id': event['pathParameters']['id']
@@ -20,16 +20,16 @@ def translate(event, context):
     )
     
         
-    # get translate service
+    # obtenemos el get del servicio translate
     translate = boto3.client(service_name='translate', region_name='us-east-1')
     
     translated_text = translate.translate_text(Text=result['Item']['text'], 
                 SourceLanguageCode="auto", TargetLanguageCode=target_lang)
     
-    # translate text
+    # traducimos el texto
     result['Item']['text']=translated_text.get('TranslatedText')
 
-    # create a response
+    # response
     response = {
         "statusCode": 200,
         "body": json.dumps(result['Item'],
